@@ -1,0 +1,41 @@
+apply plugin: 'java'
+apply plugin: 'docker'
+
+sourceCompatibility = 1.8
+version = '1.0'
+group = "dummy"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "io.dropwizard:dropwizard-core:0.7.1"
+    compile "io.dropwizard:dropwizard-testing:0.7.1"
+
+    testCompile "io.dropwizard:dropwizard-client:0.7.1"
+    testCompile "org.hamcrest:hamcrest-all:1.3"
+    testCompile "junit:junit:4.11"
+}
+
+
+
+
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+
+
+docker {
+    dockerfile 'Dockerfile'
+    maintainer 'Phill Barber'
+}
+
+task nginxDocker(type: Docker) {
+
+    applicationName = "nginx"
+}
